@@ -25,25 +25,6 @@
       "environment": {
         "CC": "clang",
         "CXX": "clang++"
-      },
-      "condition": {
-        "type": "inList",
-        "string": "${hostSystemName}",
-        "list": ["Linux", "Darwin"]
-      }
-    },
-    {
-      "name": "default",
-      "generator": "Ninja",
-      "hidden": true,
-      "environment": {
-        "CC": "clang-cl",
-        "CXX": "clang-cl"
-      },
-      "condition": {
-        "type": "inList",
-        "string": "${hostSystemName}",
-        "list": ["Windows"]
       }
     },
     {
