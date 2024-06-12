@@ -38,7 +38,7 @@ Or view Command Palette [CTRL+Shift+P]
 ### On command-line
 
 ```shell
-.cache/emsdk/source/upstream/emscripten/emrun --hostname=localhost --no_browser build/Debug-emscripten/Examples
+.cache/emsdk/source/upstream/emscripten/emrun --hostname=localhost --no_browser build/Debug-Emscripten/Examples
 ```
 
 ### In vscode

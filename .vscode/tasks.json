@@ -27,7 +27,7 @@
       "args": [
         "--hostname=localhost",
         "--no_browser",
-        "${workspaceFolder}/build/Debug-emscripten/Examples"
+        "${workspaceFolder}/build/Debug-Emscripten/Examples"
       ],
       "options": {
         "cwd": "${workspaceFolder}/.cache/emsdk/source/upstream/emscripten"
@@ -37,7 +37,7 @@
         "isDefault": true
       },
       "problemMatcher": [],
-      "detail": "Run emrun in ./build/Debug-emscripten/Examples",
+      "detail": "Run emrun in ./build/Debug-Emscripten/Examples",
       "dependsOn": ["Examples.Debug"]
     }
   ]

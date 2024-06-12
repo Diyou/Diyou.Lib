@@ -13,14 +13,14 @@
       "displayName": "Debug.html",
       "description": "Web build using emscripten",
       "inherits": ["Debug", "emscripten"],
-      "binaryDir": "${sourceDir}/build/Debug-emscripten"
+      "binaryDir": "${sourceDir}/build/Debug-Emscripten"
     },
     {
       "name": "Release::Emscripten",
       "displayName": "Release.html",
       "description": "Optimized Web build using emscripten",
       "inherits": ["Release", "emscripten"],
-      "binaryDir": "${sourceDir}/build/Release-emscripten"
+      "binaryDir": "${sourceDir}/build/Release-Emscripten"
     }
   ],
   "buildPresets": [
