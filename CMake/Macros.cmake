@@ -26,7 +26,7 @@ macro(DeclareDependency NAME URL TAG)
     BINARY_DIR        ${CMAKE_CURRENT_BINARY_DIR}/${NAME}
     PREFIX            ${CACHE_DIR}/${NAME}/prefix
     SOURCE_DIR        ${CACHE_DIR}/${NAME}/source
-    SUBBUILD_DIR      ${CACHE_DIR}/${NAME}/subbuild
+    SUBBUILD_DIR      ${CMAKE_CURRENT_BINARY_DIR}/.cache/${NAME}
     USES_TERMINAL_DOWNLOAD TRUE
     PATCH_COMMAND ${PATCH}
   )

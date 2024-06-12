@@ -1,0 +1,46 @@
+{
+  "include": ["_Common.json"],
+  "configurePresets": [
+    {
+      "name": "Debug::Windows",
+      "displayName": "Debug",
+      "description": "Native build using msvc",
+      "inherits": ["Debug", "msvc"],
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "OFF"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "Release::Windows",
+      "displayName": "Release",
+      "description": "Optimized Native build using msvc",
+      "inherits": ["Release", "msvc"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Debug::Windows",
+      "displayName": "Debug",
+      "inherits": ["Default"],
+      "configurePreset": "Debug::Windows"
+    },
+    {
+      "name": "Release::Windows",
+      "displayName": "Release",
+      "inherits": ["Default"],
+      "configurePreset": "Release::Windows"
+    }
+  ],
+  "$schema": "https://cmake.org/cmake/help/v3.30/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+  "version": 8
+}

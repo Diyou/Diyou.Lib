@@ -1,0 +1,43 @@
+{
+  "include": ["_Common.json"],
+  "configurePresets": [
+    {
+      "name": "Debug::Unix",
+      "displayName": "Debug",
+      "description": "Native build using clang",
+      "inherits": ["Debug", "clang"],
+      "condition": {
+        "type": "inList",
+        "string": "${hostSystemName}",
+        "list": ["Linux", "Darwin"]
+      }
+    },
+    {
+      "name": "Release::Unix",
+      "displayName": "Release",
+      "description": "Optimized Native build using clang",
+      "inherits": ["Release", "clang"],
+      "condition": {
+        "type": "inList",
+        "string": "${hostSystemName}",
+        "list": ["Linux", "Darwin"]
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Debug::Unix",
+      "displayName": "Debug",
+      "inherits": ["Default"],
+      "configurePreset": "Debug::Unix"
+    },
+    {
+      "name": "Release::Unix",
+      "displayName": "Release",
+      "inherits": ["Default"],
+      "configurePreset": "Release::Unix"
+    }
+  ],
+  "$schema": "https://cmake.org/cmake/help/v3.30/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+  "version": 8
+}

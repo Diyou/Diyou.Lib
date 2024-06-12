@@ -1,0 +1,42 @@
+{
+  "include": ["_Common.json"],
+  "configurePresets": [
+    {
+      "name": "pthreads",
+      "hidden": true,
+      "cacheVariables": {
+        "WASM_PTHREADS": "OFF"
+      }
+    },
+    {
+      "name": "Debug::Emscripten",
+      "displayName": "Debug.html",
+      "description": "Web build using emscripten",
+      "inherits": ["Debug", "emscripten"],
+      "binaryDir": "${sourceDir}/build/Debug-emscripten"
+    },
+    {
+      "name": "Release::Emscripten",
+      "displayName": "Release.html",
+      "description": "Optimized Web build using emscripten",
+      "inherits": ["Release", "emscripten"],
+      "binaryDir": "${sourceDir}/build/Release-emscripten"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Debug::Emscripten",
+      "displayName": "Debug",
+      "inherits": ["Default"],
+      "configurePreset": "Debug::Emscripten"
+    },
+    {
+      "name": "Release::Emscripten",
+      "displayName": "Release",
+      "inherits": ["Default"],
+      "configurePreset": "Release::Emscripten"
+    }
+  ],
+  "$schema": "https://cmake.org/cmake/help/v3.30/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+  "version": 8
+}

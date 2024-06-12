@@ -1,0 +1,21 @@
+{
+  "include": ["_Common.json"],
+  "configurePresets": [
+    {
+      "name": "ndk",
+      "displayName": "Debug.apk",
+      "description": "Configure with the Android NDK",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "condition": {
+        "type": "notEquals",
+        "lhs": "$env{ANDROID_NDK_HOME}",
+        "rhs": ""
+      }
+    }
+  ],
+  "buildPresets": [],
+  "$schema": "https://cmake.org/cmake/help/v3.30/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+  "version": 8
+}

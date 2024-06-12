@@ -4,7 +4,7 @@
     {
       "type": "cmake",
       "label": "Examples.Config",
-      "preset": "Debug.html",
+      "preset": "Debug::Emscripten",
       "command": "configure",
       "hide": true
     },
@@ -12,7 +12,7 @@
       "type": "cmake",
       "label": "Examples.Debug",
       "targets": ["Examples"],
-      "preset": "Debug.html",
+      "preset": "Debug::Emscripten",
       "command": "build",
       "hide": true,
       "dependsOn": ["Examples.Config"]
@@ -27,7 +27,7 @@
       "args": [
         "--hostname=localhost",
         "--no_browser",
-        "${workspaceFolder}/build/Debug.html/Examples"
+        "${workspaceFolder}/build/Debug-emscripten/Examples"
       ],
       "options": {
         "cwd": "${workspaceFolder}/.cache/emsdk/source/upstream/emscripten"
@@ -37,7 +37,7 @@
         "isDefault": true
       },
       "problemMatcher": [],
-      "detail": "Run emrun in ./build/Debug.html/Examples",
+      "detail": "Run emrun in ./build/Debug-emscripten/Examples",
       "dependsOn": ["Examples.Debug"]
     }
   ]

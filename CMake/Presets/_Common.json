@@ -1,0 +1,80 @@
+{
+  "configurePresets": [
+    {
+      "name": "multilib",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_FLAGS": "-m32",
+        "CMAKE_CXX_FLAGS": "-m32"
+      }
+    },
+    {
+      "name": "Common",
+      "hidden": true,
+      "cacheVariables": {
+        "DAWN_FETCH_DEPENDENCIES": "OFF"
+      }
+    },
+    {
+      "name": "Debug",
+      "hidden": true,
+      "inherits": ["Common"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "binaryDir": "${sourceDir}/build/Debug-${hostSystemName}"
+    },
+    {
+      "name": "Release",
+      "hidden": true,
+      "inherits": ["Common"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "GLM_ENABLE_FAST_MATH": "ON",
+        "BUILD_SHARED_LIBS": "OFF"
+      },
+      "binaryDir": "${sourceDir}/build/Release-${hostSystemName}"
+    },
+    {
+      "name": "clang",
+      "hidden": true,
+      "generator": "Ninja",
+      "environment": {
+        "CC": "clang",
+        "CXX": "clang++"
+      }
+    },
+    {
+      "name": "msvc",
+      "hidden": true,
+      "generator": "Visual Studio 17 2022"
+    },
+    {
+      "name": "clang-cl",
+      "hidden": true,
+      "generator": "Ninja",
+      "environment": {
+        "CC": "clang-cl",
+        "CXX": "clang-cl"
+      }
+    },
+    {
+      "name": "emscripten",
+      "hidden": true,
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_WASM": "ON",
+        "BUILD_SHARED_LIBS": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Default",
+      "hidden": true,
+      "targets": ["Diyou", "Examples"]
+    }
+  ],
+  "$schema": "https://cmake.org/cmake/help/v3.30/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+  "version": 8
+}

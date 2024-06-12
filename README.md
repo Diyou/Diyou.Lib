@@ -12,8 +12,17 @@
 ```shell
 #list available presets with
 #> cmake --list-presets
-cmake --preset=Debug && cmake --preset=Debug --build
+cmake --preset=Debug::Emscripten && cmake --build --preset=Debug::Emscripten
 ```
+
+#### Available Presets
+
+- Debug::Unix (clang + Ninja)
+- Release::Unix (clang + Ninja)
+- Debug::Windows (MSVC)
+- Release::Windows (MSVC)
+- Debug::Emscripten (clang + Ninja)
+- Release::Emscripten (clang + Ninja)
 
 ### In vscode with [cmake-tools](https://github.com/microsoft/vscode-cmake-tools)
 
@@ -29,7 +38,7 @@ Or view Command Palette [CTRL+Shift+P]
 ### On command-line
 
 ```shell
-.cache/emsdk/source/upstream/emscripten/emrun --hostname=localhost --no_browser build/Debug.html/Examples
+.cache/emsdk/source/upstream/emscripten/emrun --hostname=localhost --no_browser build/Debug-emscripten/Examples
 ```
 
 ### In vscode

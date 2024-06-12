@@ -55,8 +55,9 @@ if(NOT EMSCRIPTEN)
       BINARY_DIR        ${CMAKE_CURRENT_BINARY_DIR}/dawn
       PREFIX            ${CACHE_DIR}/dawn/prefix
       SOURCE_DIR        ${CACHE_DIR}/dawn/source
-      SUBBUILD_DIR      ${CACHE_DIR}/dawn/subbuild
-      USES_TERMINAL_DOWNLOAD TRUE
+      SUBBUILD_DIR      ${CMAKE_CURRENT_BINARY_DIR}/.cache/dawn
+      USES_TERMINAL_DOWNLOAD    TRUE
+      USES_TERMINAL_PATCH       TRUE
       PATCH_COMMAND ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient && ${CACHE_DIR}/depot_tools/source/gclient sync
     )
     set(FetchList "${FetchList};dawn")
