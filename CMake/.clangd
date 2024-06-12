@@ -1,0 +1,33 @@
+@COPY_REMARK@
+CompileFlags:
+  CompilationDatabase: '@CMAKE_BINARY_DIR@'
+
+Hover:
+  ShowAKA: Yes
+
+Index:
+  Background: Build
+  StandardLibrary: Yes
+
+InlayHints:
+  BlockEnd: Yes
+  Designators: No
+  Enabled: Yes
+  ParameterNames: No
+  DeducedTypes: Yes
+  TypeNameLimit: 24
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - bugprone*
+      - modernize*
+      - performance*
+      - readability*
+    Remove:
+      - bugprone-easily-swappable-parameters
+      - modernize-use-trailing-return-type
+      - readability-convert-member-functions-to-static
+      - readability-magic-numbers
+      - readability-named-parameter
+  UnusedIncludes: Strict

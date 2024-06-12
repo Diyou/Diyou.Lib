@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cmake",
+      "label": "Examples.Config",
+      "preset": "Debug.html",
+      "command": "configure",
+      "hide": true
+    },
+    {
+      "type": "cmake",
+      "label": "Examples.Debug",
+      "targets": ["Examples"],
+      "preset": "Debug.html",
+      "command": "build",
+      "hide": true,
+      "dependsOn": ["Examples.Config"]
+    },
+    {
+      "type": "shell",
+      "label": "Serve Tests",
+      "command": "./emrun",
+      "windows": {
+        "command": "emrun"
+      },
+      "args": [
+        "--hostname=localhost",
+        "--no_browser",
+        "${workspaceFolder}/build/Debug.html/Examples"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/.cache/emsdk/source/upstream/emscripten"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "Run emrun in ./build/Debug.html/Examples",
+      "dependsOn": ["Examples.Debug"]
+    }
+  ]
+}

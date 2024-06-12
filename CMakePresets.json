@@ -1,0 +1,130 @@
+{
+  "version": 8,
+  "configurePresets": [
+    {
+      "name": "multilib",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_FLAGS": "-m32",
+        "CMAKE_CXX_FLAGS": "-m32"
+      }
+    },
+    {
+      "name": "WASM",
+      "hidden": true,
+      "cacheVariables": {
+        "BUILD_WASM": "ON",
+        "WASM_PTHREADS": "OFF",
+        "BUILD_SHARED_LIBS": "OFF"
+      }
+    },
+    {
+      "name": "default",
+      "generator": "Ninja",
+      "hidden": true,
+      "environment": {
+        "CC": "clang",
+        "CXX": "clang++"
+      },
+      "condition": {
+        "type": "inList",
+        "string": "${hostSystemName}",
+        "list": ["Linux", "Darwin"]
+      }
+    },
+    {
+      "name": "default",
+      "generator": "Ninja",
+      "hidden": true,
+      "environment": {
+        "CC": "clang-cl",
+        "CXX": "clang-cl"
+      },
+      "condition": {
+        "type": "inList",
+        "string": "${hostSystemName}",
+        "list": ["Windows"]
+      }
+    },
+    {
+      "name": "ndk",
+      "displayName": "Debug.apk",
+      "description": "Configure with the Android NDK",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "condition": {
+        "type": "notEquals",
+        "lhs": "$env{ANDROID_NDK_HOME}",
+        "rhs": ""
+      }
+    },
+    {
+      "name": "Debug",
+      "inherits": ["default"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "DAWN_FETCH_DEPENDENCIES": "OFF"
+      },
+      "displayName": "Debug",
+      "description": "Native Target",
+      "binaryDir": "${sourceDir}/build/Debug-${hostSystemName}"
+    },
+    {
+      "name": "Release",
+      "inherits": ["default"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "DAWN_FETCH_DEPENDENCIES": "OFF",
+        "GLM_ENABLE_FAST_MATH": "ON",
+        "BUILD_SHARED_LIBS": "OFF"
+      },
+      "displayName": "Release",
+      "description": "Native Target (optimized)",
+      "binaryDir": "${sourceDir}/build/Release-${hostSystemName}"
+    },
+    {
+      "name": "Debug.html",
+      "inherits": ["Debug", "WASM"],
+      "displayName": "Debug.html",
+      "description": "Web Target build with Emscripten",
+      "binaryDir": "${sourceDir}/build/Debug.html"
+    },
+    {
+      "name": "Release.html",
+      "inherits": ["Release", "WASM"],
+      "displayName": "Release.html",
+      "description": "Web Target build with Emscripten (optimized)",
+      "binaryDir": "${sourceDir}/build/Release.html"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "hidden": true,
+      "targets": ["Diyou", "Examples"]
+    },
+    {
+      "name": "Debug",
+      "inherits": ["default"],
+      "configurePreset": "Debug"
+    },
+    {
+      "name": "Release",
+      "inherits": ["default"],
+      "configurePreset": "Release"
+    },
+    {
+      "name": "Debug.html",
+      "displayName": "Debug",
+      "inherits": ["default"],
+      "configurePreset": "Debug.html"
+    },
+    {
+      "name": "Release.html",
+      "displayName": "Release",
+      "inherits": ["default"],
+      "configurePreset": "Release.html"
+    }
+  ]
+}

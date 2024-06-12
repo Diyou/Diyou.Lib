@@ -1,0 +1,72 @@
+{
+  "licenser.author": "Diyou",
+  "licenser.license": "Custom",
+  "licenser.customHeader": "@FILE@ - @PROJECT@\n\nCopyright (c) @YEAR@ @AUTHOR@\nAll rights reserved.\n\nThis source code is licensed under the MIT license found in the\nLICENSE file in the root directory of this source tree.",
+  "licenser.useSingleLineStyle": false,
+  "licenser.disableAutoHeaderInsertion": false,
+  "files.trimFinalNewlines": true,
+  "output.smartScroll.enabled": false,
+  "editor.guides.indentation": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.default.browse.path": ["${workspaceFolder}/Modules"],
+  "C_Cpp.formatting": "clangFormat",
+  "[cpp]": {
+    "files.insertFinalNewline": true,
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  },
+  "cmake.useCMakePresets": "always",
+  "cmake.options.statusBarVisibility": "hidden",
+  "cmake.options.advanced": {
+    "configurePreset": {"statusBarVisibility": "compact"},
+    "buildPreset": {"statusBarVisibility": "compact"},
+    "build": {"statusBarVisibility": "icon"},
+    "buildTarget": {"statusBarVisibility": "compact"},
+    "launchTarget": {"statusBarVisibility": "compact"},
+    "debug": {"statusBarVisibility": "icon"}
+  },
+  "C_Cpp.inlayHints.parameterNames.enabled": true,
+  "C_Cpp.exclusionPolicy": "checkFolders",
+  "C_Cpp.files.exclude": {
+    ".cache": true,
+    "build": true,
+    "**/.vscode": true,
+    "**/.vs": true
+  },
+  "files.watcherExclude": {
+    ".cache": true,
+    "build": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.hg/store/**": true
+  },
+  "search.exclude": {
+    ".cache": true,
+    "build": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true
+  },
+  "files.exclude": {
+    ".cache": true,
+    "build": true,
+    "**/.git": true,
+    "**/.github": false,
+    "**/.vscode": false,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+  "git.ignoreLimitWarning": true,
+  "todo-tree.filtering.useBuiltInExcludes": "search excludes",
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "clangd.arguments": ["--header-insertion=never"],
+  "cmake.configureOnOpen": true
+}
