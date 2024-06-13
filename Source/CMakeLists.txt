@@ -30,7 +30,7 @@ PUBLIC
         _Module.ixx
         Window.c++
         Runtime.c++
-        Context.c++
         Surfaces/Surface${PLATFORM_SUFFIX}.c++
-        AbstractRenderer.c++   
+        Context.c++
+        IRenderer.c++   
 )

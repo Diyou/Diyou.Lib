@@ -62,7 +62,7 @@ fn main(
 struct Renderer
 : public Window
 , public virtual Context
-, public virtual AbstractRenderer
+, public virtual IRenderer
 {
   TextureView backBuffer;
 
