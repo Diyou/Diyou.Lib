@@ -19,7 +19,7 @@
       "name": "Release::Emscripten",
       "displayName": "Release.html",
       "description": "Optimized Web build using emscripten",
-      "inherits": ["Release", "emscripten"],
+      "inherits": ["Release::Mini", "emscripten"],
       "binaryDir": "${sourceDir}/build/Release-Emscripten"
     }
   ],

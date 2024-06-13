@@ -39,6 +39,22 @@
       "binaryDir": "${sourceDir}/build/Release-${hostSystemName}"
     },
     {
+      "name": "Release::DebugInfo",
+      "hidden": true,
+      "inherits": ["Release"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "Release::Mini",
+      "hidden": true,
+      "inherits": ["Release"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "MinSizeRel"
+      }
+    },
+    {
       "name": "clang",
       "hidden": true,
       "generator": "Ninja",
