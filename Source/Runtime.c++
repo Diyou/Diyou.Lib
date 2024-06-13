@@ -13,11 +13,13 @@ module;
 #include <SDL3/SDL_main.h>
 
 #include <filesystem>
-
-using namespace std;
+#include <string>
 
 export module Diyou:Runtime;
 import :Window;
+
+using namespace std;
+namespace fs = filesystem;
 
 export struct Runtime
 {
@@ -28,8 +30,8 @@ export struct Runtime
 
 private:
   Runtime(int argc, char **argv)
-  : path(filesystem::path(argv[0]).parent_path())
-  , name(filesystem::path(argv[0]).filename())
+  : path(fs::path(argv[0]).parent_path().string())
+  , name(fs::path(argv[0]).filename().string())
   {
 
     SDL_SetHint(SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR, "1");

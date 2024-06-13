@@ -13,13 +13,13 @@ module;
 
 #include <webgpu/webgpu_cpp.h>
 
-using namespace std;
-using namespace wgpu;
-
 export module Diyou:Context;
 
 import :Window;
 import :Surface;
+
+using namespace std;
+using namespace wgpu;
 
 export struct Context
 {

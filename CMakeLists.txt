@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.28)
 
 option(BUILD_SHARED_LIBS "Create shared objects" ON)
 option(BUILD_WASM "Compile to WASM with Emscripten" OFF)
-option(WASM_PTHREADS "Enable multithreading for WASM build" OFF)
+option(BUILD_WASM_PTHREADS "Enable multithreading for WASM build" OFF)
 option(ENABLE_IPO "If supported use Interprocedural Optimization" ON)
 option(DAWN_FETCH_DEPENDENCIES "Use fetch_dawn_dependencies.py instead of depot_tools" OFF)
 
@@ -65,4 +65,4 @@ PUBLIC
 
 # Sources
 add_subdirectory(Source)
-add_subdirectory(Examples EXCLUDE_FROM_ALL)
+add_subdirectory(Examples)

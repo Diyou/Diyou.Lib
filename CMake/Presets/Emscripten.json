@@ -5,7 +5,7 @@
       "name": "pthreads",
       "hidden": true,
       "cacheVariables": {
-        "WASM_PTHREADS": "OFF"
+        "BUILD_WASM_PTHREADS": "ON"
       }
     },
     {

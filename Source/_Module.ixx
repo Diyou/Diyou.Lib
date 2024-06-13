@@ -8,7 +8,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 module;
-#ifndef __EMSCRIPTEN__
+#ifdef linux
 #include <bits/unicode.h>
 #endif
 

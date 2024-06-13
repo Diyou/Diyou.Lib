@@ -11,8 +11,11 @@
     {
       "name": "Common",
       "hidden": true,
+      "environment": {
+        "DEPOT_TOOLS_UPDATE": "0"
+      },
       "cacheVariables": {
-        "DAWN_FETCH_DEPENDENCIES": "OFF"
+        "DAWN_FETCH_DEPENDENCIES": "ON"
       }
     },
     {

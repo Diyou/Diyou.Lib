@@ -9,6 +9,7 @@
  */
 import Diyou;
 
+#include <array>
 #include <cassert>
 #include <iostream>
 

@@ -13,6 +13,7 @@ import Diyou;
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/glm.hpp>
 
+#include <array>
 #include <cassert>
 #include <chrono>
 #include <iostream>

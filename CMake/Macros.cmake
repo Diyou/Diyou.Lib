@@ -10,6 +10,7 @@ set(CACHE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/.cache)
 
 find_package(Git REQUIRED)
 include(FetchContent)
+
 set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
 
 macro(DeclareDependency NAME URL TAG)
@@ -23,14 +24,14 @@ macro(DeclareDependency NAME URL TAG)
     GIT_SUBMODULES    ""
     GIT_PROGRESS      TRUE
     EXCLUDE_FROM_ALL  TRUE
-    BINARY_DIR        ${CMAKE_CURRENT_BINARY_DIR}/${NAME}
-    PREFIX            ${CACHE_DIR}/${NAME}/prefix
-    SOURCE_DIR        ${CACHE_DIR}/${NAME}/source
-    SUBBUILD_DIR      ${CMAKE_CURRENT_BINARY_DIR}/.cache/${NAME}
+    BINARY_DIR        ${NAME}
+    PREFIX            ${CACHE_DIR}/.prefix/${NAME}
+    SOURCE_DIR        ${CACHE_DIR}/${NAME}
+    SUBBUILD_DIR      .cache/${NAME}
     USES_TERMINAL_DOWNLOAD TRUE
     PATCH_COMMAND ${PATCH}
   )
-  set(FetchList "${FetchList};${NAME}")
+  list(APPEND FetchList ${NAME})
 endmacro()
 
 macro(AddDependencies Dependencies)
@@ -41,6 +42,24 @@ macro(AddDependencies Dependencies)
   endforeach()
   FetchContent_MakeAvailable(${FetchList})
 endmacro()
+
+function(GitTag DIR OUT)
+  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
+    WORKING_DIRECTORY ${DIR}
+    OUTPUT_VARIABLE VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+  )
+  if("${VERSION}" STREQUAL "")
+  execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
+    WORKING_DIRECTORY ${DIR}
+    OUTPUT_VARIABLE VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+  )
+  endif()
+  set(${OUT} ${VERSION} PARENT_SCOPE)
+endfunction()
 
 function(Configure FILE_IN FILE_OUT)
 set(COPY_REMARK "\

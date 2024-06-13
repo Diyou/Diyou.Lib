@@ -13,16 +13,17 @@ module;
 #include <emscripten/html5.h>
 #endif
 
+#include <iostream>
 #include <thread>
 
 #include <webgpu/webgpu_cpp.h>
 
-using namespace std;
-using namespace wgpu;
-
 export module Diyou:AbstractRenderer;
 
 import :Context;
+
+using namespace std;
+using namespace wgpu;
 
 export class AbstractRenderer : public virtual Context
 {
@@ -85,9 +86,13 @@ protected:
 #endif
   }
 
+  // TODO Update to AdapterInfo in emscripten 3.1.62
   [[nodiscard]]
   AdapterProperties getAdapterProperties() const
   {
+    AdapterInfo info;
+    adapter.GetInfo(&info);
+
     AdapterProperties properties;
     adapter.GetProperties(&properties);
     return properties;

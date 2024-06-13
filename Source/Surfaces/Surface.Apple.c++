@@ -14,10 +14,10 @@ module;
 #include <Foundation/Foundation.h>
 #include <QuartzCore/CAMetalLayer.h>
 
+export module Diyou:Surface;
+
 using namespace std;
 using namespace wgpu;
-
-export module Diyou:Surface;
 
 export inline Surface
 SurfaceFromWindow(Instance const &instance, SDL_Window *window)

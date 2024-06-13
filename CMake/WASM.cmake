@@ -70,7 +70,7 @@ $<$<CONFIG:Debug>:
 >)
 
 # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements
-if(WASM_PTHREADS)
+if(BUILD_WASM_PTHREADS)
 set(ENABLE_IPO OFF)
 message(STATUS "Multithreading: Enabled")
 target_link_options(emscripten

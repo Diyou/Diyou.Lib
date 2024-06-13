@@ -17,14 +17,14 @@ PROPERTIES
     INTERFACE_LINK_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Shell.html
 )
 
-add_executable(Triangle Triangle.c++)
+add_executable(Triangle WIN32 Triangle.c++)
 target_link_libraries(Triangle
 PRIVATE
     Diyou::Lib
     $<$<BOOL:${EMSCRIPTEN}>:Shell.html>
 )
 
-add_executable(Cube Cube.c++)
+add_executable(Cube WIN32 Cube.c++)
 target_link_libraries(Cube
 PRIVATE
     Diyou::Lib

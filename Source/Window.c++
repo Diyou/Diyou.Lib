@@ -20,11 +20,11 @@ module;
 #include <emscripten.h>
 #endif
 
+export module Diyou:Window;
+
 using namespace std;
 
 constexpr char const *const RuntimeResolver = "🪟";
-
-export module Diyou:Window;
 
 export class Window
 {
@@ -84,8 +84,8 @@ public:
 
 #ifdef __EMSCRIPTEN__
     int canvasCount = MAIN_THREAD_EM_ASM_INT({
-      const container = document.querySelector('#canvasContainer');
-      const canvas = document.createElement('canvas');
+      container const = document.querySelector('#canvasContainer');
+      canvas const = document.createElement('canvas');
       var count = document.getElementsByTagName('canvas').length;
 
       canvas.oncontextmenu = e => e.preventDefault();
