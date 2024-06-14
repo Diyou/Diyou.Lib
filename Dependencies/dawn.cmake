@@ -7,7 +7,7 @@
 # LICENSE file in the root directory of this source tree.
 
 set(DAWN_TAG chromium/6536)
-set(DAWN_URL https://dawn.googlesource.com/dawn)
+set(DAWN_URL https://dawn.googlesource.com/dawn.git)
 
 set(DAWN_ENABLE_DESKTOP_GL OFF)
 set(DAWN_ENABLE_OPENGLES OFF)
@@ -33,21 +33,39 @@ if(NOT EMSCRIPTEN)
     if("${DAWN_TAG}" STREQUAL "${VERSION}")
       set(DAWN_FETCH_DEPENDENCIES OFF CACHE BOOL "" FORCE)
     endif()
-#[[Slow]] # FIXME Depot_Tools on windows does not work
+#[[Slow]]
   else()
+    if(WIN32)
+      set(ENV{DEPOT_TOOLS_UPDATE} TRUE)
+      set(WIN_TOOLS cmd /c gclient)
+    endif()
+
+    set(DEPOT_TOOLS_DIR ${CACHE_DIR}/depot_tools)
+    AppendPath(BEFORE ${DEPOT_TOOLS_DIR})
+
+    DeclareDependency(depot_tools
+      https://chromium.googlesource.com/chromium/tools/depot_tools.git
+      main
+      PATCH ${WIN_TOOLS}
+    )
+
+    DeclareDependency(dawn
+      ${DAWN_URL}
+      ${DAWN_TAG}
+      PATCH ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient && gclient sync
+    )
+
+    #[[Submodule approach
     set(DEPOT_TOOLS third_party/depot_tools)
     set(DEPOT_TOOLS_DIR ${CACHE_DIR}/dawn/${DEPOT_TOOLS})
     AppendPath(BEFORE ${DEPOT_TOOLS_DIR})
-
-    if(WIN32)
-      set(WIN_TOOLS && gclient)
-    endif()
 
     DeclareDependency(dawn
       ${DAWN_URL}
       ${DAWN_TAG}
       SUBMODULES ${DEPOT_TOOLS}
-      PATCH ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient && gclient sync
+      PATCH ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient ${WIN_TOOLS} && gclient sync
     )
+    ]]
   endif()
 endif()
