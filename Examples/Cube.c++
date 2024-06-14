@@ -148,6 +148,7 @@ struct Renderer
       capabilities.alphaModes + capabilities.alphaModeCount);
 
     textureFormat = capabilities.formats[0];
+
     SurfaceConfiguration config{
       .device = device,
       .format = textureFormat,
@@ -156,6 +157,7 @@ struct Renderer
       .width = width,
       .height = height,
       .presentMode = presentModes.front()};
+
     surface.Configure(&config);
 
     {

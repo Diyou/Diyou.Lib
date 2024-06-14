@@ -23,11 +23,6 @@ using namespace wgpu;
 
 export struct Context
 {
-  /* TODO try implementing this with clang 18
-    static Surface SurfaceFromWindow(
-      Instance const &instance,
-      Window const &window);
-  */
   Instance instance;
   Surface surface;
   Adapter adapter;
@@ -44,8 +39,6 @@ export struct Context
       function<void(Window &&, Context &&)> callback;
     };
 
-    // new is required for the emscripten runtime to prevent
-    // a premature destruction of local variables
     auto *userdata = new UserData(::move(window), {}, callback);
 
     auto &context = userdata->context;
@@ -60,7 +53,9 @@ export struct Context
 
     RequestAdapterOptions options{
       .compatibleSurface = surface,
-      .powerPreference = PowerPreference::HighPerformance};
+      .powerPreference = PowerPreference::HighPerformance,
+      //  .backendType = BackendType::OpenGL
+    };
 
     instance.RequestAdapter(
       &options,
@@ -143,13 +138,6 @@ export struct Context
           userdata);
       },
       userdata);
-
-    /* TODO implement this once emscripten supports it
-        see
-       https://dawn.googlesource.com/dawn/+/refs/heads/main/src/dawn/samples/SampleUtils.cpp
-        FutureWaitInfo adapterFuture;
-        instance.WaitAny(1, &adapterFuture, UINT64_MAX);
-      */
   }
 
 private:
