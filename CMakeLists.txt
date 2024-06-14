@@ -22,10 +22,6 @@ list(APPEND CMAKE_MODULE_PATH
 include(Macros)
 include(WASM)
 
-# clangd support
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-Configure(CMake/.clangd ${CMAKE_CURRENT_SOURCE_DIR}/.clangd)
-
 project(Diyou CXX)
 
 include(IPO)
@@ -34,6 +30,12 @@ set(CMAKE_INSTALL_MESSAGE LAZY)
 set(CMAKE_CXX_MODULE_STD ON)
 set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+# clangd support
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+Configure(CMake/.clangd ${CMAKE_CURRENT_SOURCE_DIR}/.clangd)
+endif()
 
 # Dependencies
 AddDependencies(SDL3 glm dawn)

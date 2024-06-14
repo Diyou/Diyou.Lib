@@ -12,7 +12,8 @@
       "name": "Common",
       "hidden": true,
       "environment": {
-        "DEPOT_TOOLS_UPDATE": "0"
+        "DEPOT_TOOLS_UPDATE": "0",
+        "DEPOT_TOOLS_WIN_TOOLCHAIN": "0"
       },
       "cacheVariables": {
         "DAWN_FETCH_DEPENDENCIES": "OFF"

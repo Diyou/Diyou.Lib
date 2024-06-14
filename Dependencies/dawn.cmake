@@ -36,7 +36,12 @@ if(NOT EMSCRIPTEN)
 #[[Slow]] # FIXME Depot_Tools on windows does not work
   else()
     set(DEPOT_TOOLS third_party/depot_tools)
-    AppendPath(BEFORE ${CACHE_DIR}/dawn/${DEPOT_TOOLS})
+    set(DEPOT_TOOLS_DIR ${CACHE_DIR}/dawn/${DEPOT_TOOLS})
+    AppendPath(BEFORE ${DEPOT_TOOLS_DIR})
+
+    if(WIN32)
+      set(WIN_TOOLS && gclient)
+    endif()
 
     DeclareDependency(dawn
       ${DAWN_URL}

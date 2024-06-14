@@ -11,8 +11,6 @@ set(CACHE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/.cache)
 find_package(Git REQUIRED)
 include(FetchContent)
 
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-
 function(DeclareDependency NAME URL TAG)
   set(options)
   set(oneValueArgs)
@@ -27,13 +25,13 @@ function(DeclareDependency NAME URL TAG)
     GIT_SHALLOW       TRUE
     GIT_SUBMODULES    "${FUNC_DDEP_SUBMODULES}"
     GIT_PROGRESS      TRUE
+    UPDATE_DISCONNECTED TRUE
     EXCLUDE_FROM_ALL  TRUE
     BINARY_DIR        ${NAME}
     PREFIX            ${CACHE_DIR}/.prefix/${NAME}
     SOURCE_DIR        ${CACHE_DIR}/${NAME}
     SUBBUILD_DIR      ${CACHE_DIR}/.prefix/${NAME}/sub
-    USES_TERMINAL_DOWNLOAD TRUE
-    PATCH_COMMAND ${FUNC_DDEP_PATCH}
+    PATCH_COMMAND     ${FUNC_DDEP_PATCH}
   )
   set(_LIST ${FetchList})
   list(APPEND _LIST ${NAME})
