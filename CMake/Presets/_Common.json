@@ -15,7 +15,7 @@
         "DEPOT_TOOLS_UPDATE": "0"
       },
       "cacheVariables": {
-        "DAWN_FETCH_DEPENDENCIES": "ON"
+        "DAWN_FETCH_DEPENDENCIES": "OFF"
       }
     },
     {

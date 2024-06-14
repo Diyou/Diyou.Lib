@@ -13,35 +13,43 @@ include(FetchContent)
 
 set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
 
-macro(DeclareDependency NAME URL TAG)
-  set(PATCH ${ARGV3})
-  message(STATUS "Adding Dependency: ${NAME}")
+function(DeclareDependency NAME URL TAG)
+  set(options)
+  set(oneValueArgs)
+  set(multiValueArgs PATCH SUBMODULES)
+  cmake_parse_arguments(FUNC_DDEP "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+  Message(STATUS "Adding Dependency: ${NAME}")
 
   FetchContent_Declare(${NAME}
     GIT_REPOSITORY    ${URL}
     GIT_TAG           ${TAG}
     GIT_SHALLOW       TRUE
-    GIT_SUBMODULES    ""
+    GIT_SUBMODULES    "${FUNC_DDEP_SUBMODULES}"
     GIT_PROGRESS      TRUE
     EXCLUDE_FROM_ALL  TRUE
     BINARY_DIR        ${NAME}
     PREFIX            ${CACHE_DIR}/.prefix/${NAME}
     SOURCE_DIR        ${CACHE_DIR}/${NAME}
-    SUBBUILD_DIR      .cache/${NAME}
+    SUBBUILD_DIR      ${CACHE_DIR}/.prefix/${NAME}/sub
     USES_TERMINAL_DOWNLOAD TRUE
-    PATCH_COMMAND ${PATCH}
+    PATCH_COMMAND ${FUNC_DDEP_PATCH}
   )
-  list(APPEND FetchList ${NAME})
-endmacro()
+  set(_LIST ${FetchList})
+  list(APPEND _LIST ${NAME})
+  set(FetchList ${_LIST} PARENT_SCOPE)
+endfunction()
 
-macro(AddDependencies Dependencies)
+function(AddDependencies Dependencies)
   set(_LIST ${Dependencies} ${ARGN})
-  set(FetchList "")
+  set(FetchList PARENT_SCOPE)
+
   foreach(dependency ${_LIST})
     include(${dependency})
   endforeach()
+
   FetchContent_MakeAvailable(${FetchList})
-endmacro()
+endfunction()
 
 function(GitTag DIR OUT)
   execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
@@ -59,6 +67,18 @@ function(GitTag DIR OUT)
   )
   endif()
   set(${OUT} ${VERSION} PARENT_SCOPE)
+endfunction()
+
+function(AppendPath)
+  set(options)
+  set(oneValueArgs PATCH)
+  set(multiValueArgs AFTER BEFORE)
+
+  cmake_parse_arguments(FUNC_APATH "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+  set(_PATH ${FUNC_APATH_BEFORE} $ENV{PATH} ${FUNC_APATH_AFTER})
+  cmake_path(CONVERT "${_PATH}" TO_NATIVE_PATH_LIST _PATH NORMALIZE)
+  set(ENV{PATH} "${_PATH}") 
 endfunction()
 
 function(Configure FILE_IN FILE_OUT)

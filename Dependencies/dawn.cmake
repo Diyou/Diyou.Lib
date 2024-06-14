@@ -35,20 +35,14 @@ if(NOT EMSCRIPTEN)
     endif()
 #[[Slow]] # FIXME Depot_Tools on windows does not work
   else()
-    set(_PATH ${CACHE_DIR}/depot_tools $ENV{PATH})
-    cmake_path(CONVERT "${_PATH}" TO_NATIVE_PATH_LIST _PATH NORMALIZE)
-    set(ENV{PATH} "${_PATH}")
+    set(DEPOT_TOOLS third_party/depot_tools)
+    AppendPath(BEFORE ${CACHE_DIR}/dawn/${DEPOT_TOOLS})
 
-    DeclareDependency(depot_tools
-      https://chromium.googlesource.com/chromium/tools/depot_tools.git
-      main
-      $<$<BOOL:${WIN32}>:gclient>
-    )
-    
     DeclareDependency(dawn
       ${DAWN_URL}
       ${DAWN_TAG}
-      "${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient && gclient sync"
+      SUBMODULES ${DEPOT_TOOLS}
+      PATCH ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient && gclient sync
     )
   endif()
 endif()
