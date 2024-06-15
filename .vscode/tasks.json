@@ -30,7 +30,7 @@
         "${workspaceFolder}/build/Debug-Emscripten/Examples"
       ],
       "options": {
-        "cwd": "${workspaceFolder}/.cache/emsdk/source/upstream/emscripten"
+        "cwd": "${workspaceFolder}/.cache/emsdk/upstream/emscripten"
       },
       "group": {
         "kind": "build",

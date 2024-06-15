@@ -28,9 +28,13 @@ export struct Context
   Adapter adapter;
   Device device;
 
+  static inline Surface GetSurface(
+    Instance const &instance,
+    Window const &window);
+
   static inline void From(
     unique_ptr<Window> window,
-    function<void(Window &&, Context &&)> const &callback)
+    function<void(Window &&, Context &&)> callback)
   {
     struct UserData
     {
@@ -39,7 +43,7 @@ export struct Context
       function<void(Window &&, Context &&)> callback;
     };
 
-    auto *userdata = new UserData(::move(window), {}, callback);
+    auto *userdata = new UserData(::move(window), {}, ::move(callback));
 
     auto &context = userdata->context;
     auto &instance = context.instance;
@@ -49,7 +53,7 @@ export struct Context
 
     instance = CreateInstance();
 
-    surface = SurfaceFromWindow(instance, userdata->window->handle);
+    surface = GetSurface(instance, *userdata->window);
 
     RequestAdapterOptions options{
       .compatibleSurface = surface,
@@ -162,3 +166,9 @@ private:
     cerr << format("Error: {}\n", message);
   }
 };
+
+Surface
+Context::GetSurface(Instance const &instance, Window const &window)
+{
+  return SurfaceFromWindow(instance, window.handle);
+}

@@ -10,7 +10,7 @@ if(${BUILD_WASM})
 set(EMSDK_TAG 3.1.61)
 set(EMSCRIPTEN_TAG 3.1.61)
 
-set(ESMDK_DIR ${CACHE_DIR}/emsdk/source)
+set(ESMDK_DIR ${CACHE_DIR}/emsdk)
 set(EMSDK_COMMAND ${ESMDK_DIR}/emsdk)
 set(EMSCRIPTEN_ROOT ${ESMDK_DIR}/upstream/emscripten)
 set(EMSCRIPTEN_TOOLCHAIN ${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)

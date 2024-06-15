@@ -90,8 +90,10 @@ protected:
   [[nodiscard]]
   AdapterProperties getAdapterProperties() const
   {
+#ifndef __EMSCRIPTEN__
     AdapterInfo info;
     adapter.GetInfo(&info);
+#endif
 
     AdapterProperties properties;
     adapter.GetProperties(&properties);

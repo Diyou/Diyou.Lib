@@ -20,7 +20,7 @@ list(APPEND CMAKE_MODULE_PATH
 )
 
 include(Macros)
-include(WASM)
+include(Emscripten)
 
 project(Diyou CXX)
 

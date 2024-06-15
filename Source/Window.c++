@@ -69,14 +69,14 @@ public:
 
 #ifdef __EMSCRIPTEN__
     int canvasCount = MAIN_THREAD_EM_ASM_INT({
-      container const = document.querySelector('#canvasContainer');
-      canvas const = document.createElement('canvas');
-      var count = document.getElementsByTagName('canvas').length;
+      const container= document.querySelector('#canvasContainer');
+      const canvas= document.createElement('canvas');
+      const count = document.getElementsByTagName('canvas').length;
 
       canvas.oncontextmenu = e => e.preventDefault();
       canvas.id = `canvas${count}`;
       container.appendChild(canvas);
-      return count
+      return count;
     });
     querySelector = format("canvas#canvas{}", canvasCount);
     SDL_SetHint(SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR, querySelector.c_str());
