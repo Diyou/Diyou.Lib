@@ -45,14 +45,24 @@ private:
   int ProcessEvent(SDL_Event const &event)
   {
     switch (event.type) {
-      case SDL_EVENT_MOUSE_BUTTON_DOWN:
-      case SDL_EVENT_MOUSE_BUTTON_UP: {
-        Window::fromID(event.button.windowID).OnClick(event.button);
+      case SDL_EVENT_MOUSE_MOTION: {
+        Window::fromID(event.button.windowID).OnMouseMotion(event.motion);
       } break;
 
-      case SDL_EVENT_KEY_DOWN:
+      case SDL_EVENT_MOUSE_BUTTON_DOWN: {
+        Window::fromID(event.button.windowID).OnMouseDown(event.button);
+      } break;
+
+      case SDL_EVENT_MOUSE_BUTTON_UP: {
+        Window::fromID(event.button.windowID).OnMouseUp(event.button);
+      } break;
+
+      case SDL_EVENT_KEY_DOWN: {
+        Window::fromID(event.key.windowID).OnKeyDown(event.key);
+      } break;
+
       case SDL_EVENT_KEY_UP: {
-        Window::fromID(event.key.windowID).OnKey(event.key);
+        Window::fromID(event.key.windowID).OnKeyUp(event.key);
       } break;
 
       case SDL_EVENT_WINDOW_CLOSE_REQUESTED: {

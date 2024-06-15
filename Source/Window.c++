@@ -41,39 +41,24 @@ protected:
 
   virtual void Close() { SDL_DestroyWindow(handle); };
 
-  virtual void OnKey(SDL_KeyboardEvent const &event)
+  virtual void OnMouseMotion(SDL_MouseMotionEvent const &event) {}
+  virtual void OnMouseDown(SDL_MouseButtonEvent const &event){};
+  virtual void OnMouseUp(SDL_MouseButtonEvent const &event){};
+
+  virtual void OnKeyDown(SDL_KeyboardEvent const &event)
   {
     SDL_Keysym const &key = event.keysym;
-    switch (event.type) {
-      case SDL_EVENT_KEY_DOWN: {
-        // Toggle fullscreen
-        if (
-          event.repeat > 0 && (key.mod & SDL_KMOD_ALT) > 0
-          && (key.scancode == SDL_SCANCODE_KP_ENTER || key.scancode == SDL_SCANCODE_RETURN))
-        {
-          SDL_WindowFlags flags = SDL_GetWindowFlags(handle);
-          bool isNotFullscreen = (flags & SDL_WINDOW_FULLSCREEN) == 0;
-          SDL_SetWindowFullscreen(
-            handle, static_cast<SDL_bool>(isNotFullscreen));
-        }
-      } break;
-      case SDL_EVENT_KEY_UP: {
-      }
-      default:
-        break;
+    // Toggle fullscreen
+    if (
+      event.repeat == 0 && (key.mod & SDL_KMOD_ALT) > 0
+      && (key.scancode == SDL_SCANCODE_KP_ENTER || key.scancode == SDL_SCANCODE_RETURN))
+    {
+      SDL_WindowFlags flags = SDL_GetWindowFlags(handle);
+      bool isNotFullscreen = (flags & SDL_WINDOW_FULLSCREEN) == 0;
+      SDL_SetWindowFullscreen(handle, static_cast<SDL_bool>(isNotFullscreen));
     }
   }
-
-  virtual void OnClick(SDL_MouseButtonEvent const &event)
-  {
-    switch (event.state) {
-      case SDL_PRESSED: {
-        cout << "Click\n";
-      }
-      default:
-        break;
-    }
-  }
+  virtual void OnKeyUp(SDL_KeyboardEvent const &event) {}
 
 public:
   Window(string const &title, unsigned const width, unsigned const height)
