@@ -19,7 +19,6 @@ export module Diyou:Runtime;
 import :Window;
 
 using namespace std;
-namespace fs = filesystem;
 
 export struct Runtime
 {
@@ -30,11 +29,13 @@ export struct Runtime
 
 private:
   Runtime(int argc, char **argv)
-  : path(fs::path(argv[0]).parent_path().string())
-  , name(fs::path(argv[0]).filename().string())
+  : path(filesystem::path(argv[0]).parent_path().string())
+  , name(filesystem::path(argv[0]).filename().string())
   {
-
+    // Attempt to reduce stutter on X11
+    // \see https://forums.developer.nvidia.com/t/185015
     SDL_SetHint(SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR, "1");
+
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD);
     if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0) {
       // Fixes high cpu load with nvidia proprietary drivers
