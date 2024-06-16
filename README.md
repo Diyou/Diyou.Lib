@@ -5,6 +5,10 @@
 - cmake > 3.28
 - clang > 17
 
+## Usage
+
+As a general entry-point See: [Template](Examples/Template.c++)
+
 ## Building
 
 ### On command-line:
