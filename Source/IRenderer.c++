@@ -18,7 +18,7 @@ module;
 
 #include <webgpu/webgpu_cpp.h>
 
-export module Diyou:AbstractRenderer;
+export module Diyou:IRenderer;
 
 import :Context;
 

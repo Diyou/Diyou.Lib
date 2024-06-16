@@ -25,6 +25,10 @@ using namespace chrono;
 using namespace wgpu;
 using namespace glm;
 
+constexpr char const *WindowTitle = "Hello Cube";
+constexpr unsigned WindowWidth = 720;
+constexpr unsigned WindowHeight = 480;
+
 constexpr char const *vertexShader = R"(
 struct Uniforms {
   modelViewProjectionMatrix : mat4x4f,
@@ -394,6 +398,6 @@ vector<unique_ptr<Renderer>> Renderer::instances;
 void
 Init(Runtime const &runtime)
 {
-  auto window = make_unique<Window>("Hello Cube", 720, 480);
+  auto window = make_unique<Window>(WindowTitle, WindowWidth, WindowHeight);
   Renderer::CreateFrom(::move(window));
 }

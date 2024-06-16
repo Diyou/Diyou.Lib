@@ -54,7 +54,11 @@ private:
       } break;
 
       case SDL_EVENT_MOUSE_BUTTON_UP: {
-        Window::fromID(event.button.windowID).OnMouseUp(event.button);
+        // windowID = 0 when releasing outside of canvas
+        // causes Assertion to fail
+        if (event.button.windowID > 0) {
+          Window::fromID(event.button.windowID).OnMouseUp(event.button);
+        }
       } break;
 
       case SDL_EVENT_KEY_DOWN: {

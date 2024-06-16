@@ -24,7 +24,7 @@ export module Diyou:Window;
 
 using namespace std;
 
-constexpr char const *const RuntimeResolver = "🪟";
+constexpr char const *RuntimeResolver = "🪟";
 
 export class Window
 {
@@ -89,7 +89,7 @@ public:
     properties = SDL_GetWindowProperties(handle);
 
     SDL_SetProperty(properties, RuntimeResolver, this);
-    SDL_SetProperty(properties, "„🖼", querySelector.data());
+    SDL_SetProperty(properties, "🖼", querySelector.data());
   }
 
   [[nodiscard]]

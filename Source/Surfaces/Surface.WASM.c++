@@ -22,7 +22,7 @@ SurfaceFromWindow(Instance const &instance, SDL_Window *window)
   auto props = SDL_GetWindowProperties(window);
 
   SurfaceDescriptorFromCanvasHTMLSelector chain;
-  chain.selector = (char *)SDL_GetProperty(props, "„🖼", nullptr);
+  chain.selector = (char *)SDL_GetProperty(props, "🖼", nullptr);
 
   SurfaceDescriptor descriptor{.nextInChain = &chain};
   return instance.CreateSurface(&descriptor);

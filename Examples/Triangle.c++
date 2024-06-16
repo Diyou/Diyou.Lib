@@ -18,6 +18,10 @@ import Diyou;
 using namespace std;
 using namespace wgpu;
 
+constexpr char const *WindowTitle = "Hello Triangle";
+constexpr unsigned WindowWidth = 720;
+constexpr unsigned WindowHeight = 480;
+
 constexpr char const *vertexShader = R"(
 struct VertexIn {
     @location(0) aPos : vec2<f32>,
@@ -309,7 +313,8 @@ void
 Init(Runtime const &runtime)
 {
   for (int i = 0; i < 2; i++) {
-    auto window = make_unique<Window>(format("Hello Triangle#{}", i), 720, 480);
+    auto window = make_unique<Window>(
+      format("{}#{}", WindowTitle, i), WindowWidth, WindowHeight);
     Renderer::CreateFrom(::move(window));
   }
 }
