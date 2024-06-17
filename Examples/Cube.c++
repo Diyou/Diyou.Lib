@@ -43,7 +43,7 @@ struct Renderer
   Texture depthTexture;
 
   /* clang-format off */
-  vector<float> const Vertices = {
+  vector<float> const Vertices {
     // float4 position, float4 color, float2 uv,
     1,  -1, 1,  1, 1, 0, 1, 1, 0, 1, //
     -1, -1, 1,  1, 0, 0, 1, 1, 1, 1, //
@@ -230,7 +230,9 @@ struct Renderer
 
   RenderPipeline CreatePipeline()
   {
-    ShaderModule shader = createWGSLShader(Shaders::WGSL::Cube);
+    // ShaderModule shader = createWGSLShader(Shaders::WGSL::Cube);
+    ShaderModule vert = createSPIRVShader(Shaders::GLSL::Cube_vert);
+    ShaderModule frag = createSPIRVShader(Shaders::GLSL::Cube_frag);
 
     BindGroupLayout bindGroupLayout;
     {
@@ -284,7 +286,7 @@ struct Renderer
       .attributes = vertexAttributes.data()};
 
     VertexState vertexState{
-      .module = shader,
+      .module = vert,
       .entryPoint = "main",
       .bufferCount = 1,
       .buffers = &vertexBufferLayout};
@@ -305,8 +307,8 @@ struct Renderer
       .writeMask = ColorWriteMask::All}};
 
     FragmentState fragmentState{
-      .module = shader,
-      .entryPoint = "frag_main",
+      .module = frag,
+      .entryPoint = "main",
       .targetCount = colorTargets.size(),
       .targets = colorTargets.data()};
 

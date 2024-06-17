@@ -37,6 +37,9 @@ PRIVATE
 AddShaders(Cube
 WGSL
     Shaders/wgsl/Cube.wgsl
+GLSL
+    Shaders/glsl/Cube.vert
+    Shaders/glsl/Cube.frag
 )
 
 add_dependencies(Examples

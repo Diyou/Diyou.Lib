@@ -34,13 +34,13 @@ struct Renderer
   TextureFormat textureFormat;
 
   /* clang-format off */
-  vector<float> const Vertices = {
+  vector<float> const Vertices {
     -0.8F, -0.8F, 0.0F, 0.0F, 1.0F, // BL
     +0.8F, -0.8F, 0.0F, 1.0F, 0.0F, // BR
     -0.0F, +0.8F, 1.0F, 0.0F, 0.0F, // top
   };
   
-  vector<uint16_t> const Indices = {
+  vector<uint16_t> const Indices {
     0,  1,  2, //
     0          //
   };
