@@ -8,6 +8,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 import Diyou;
+import Shaders;
 
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
@@ -28,40 +29,6 @@ using namespace glm;
 constexpr char const *WindowTitle = "Hello Cube";
 constexpr unsigned WindowWidth = 720;
 constexpr unsigned WindowHeight = 480;
-
-constexpr char const *vertexShader = R"(
-struct Uniforms {
-  modelViewProjectionMatrix : mat4x4f,
-}
-@binding(0) @group(0) var<uniform> uniforms : Uniforms;
-
-struct VertexOutput {
-  @builtin(position) Position : vec4f,
-  @location(0) fragUV : vec2f,
-  @location(1) fragPosition: vec4f,
-}
-
-@vertex
-fn main(
-  @location(0) position : vec4f,
-  @location(1) uv : vec2f
-) -> VertexOutput {
-  var output : VertexOutput;
-  output.Position = uniforms.modelViewProjectionMatrix * position;
-  output.fragUV = uv;
-  output.fragPosition = 0.5 * (position + vec4(1.0, 1.0, 1.0, 1.0));
-  return output;
-}
-)";
-constexpr char const *fragmentShader = R"(
-@fragment
-fn main(
-  @location(0) fragUV: vec2f,
-  @location(1) fragPosition: vec4f
-) -> @location(0) vec4f {
-  return fragPosition;
-}
-)";
 
 struct Renderer
 : public virtual Window
@@ -262,8 +229,7 @@ struct Renderer
 
   RenderPipeline CreatePipeline()
   {
-    ShaderModule vertMod = createWGSLShader(vertexShader);
-    ShaderModule fragMod = createWGSLShader(fragmentShader);
+    ShaderModule shader = createWGSLShader(Shaders::WGSL::Cube);
 
     BindGroupLayout bindGroupLayout;
     {
@@ -317,7 +283,7 @@ struct Renderer
       .attributes = vertexAttributes.data()};
 
     VertexState vertexState{
-      .module = vertMod,
+      .module = shader,
       .entryPoint = "main",
       .bufferCount = 1,
       .buffers = &vertexBufferLayout};
@@ -338,8 +304,8 @@ struct Renderer
       .writeMask = ColorWriteMask::All}};
 
     FragmentState fragmentState{
-      .module = fragMod,
-      .entryPoint = "main",
+      .module = shader,
+      .entryPoint = "frag_main",
       .targetCount = colorTargets.size(),
       .targets = colorTargets.data()};
 

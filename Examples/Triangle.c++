@@ -8,6 +8,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 import Diyou;
+import Shaders;
 
 #include <array>
 #include <cassert>
@@ -21,41 +22,6 @@ using namespace wgpu;
 constexpr char const *WindowTitle = "Hello Triangle";
 constexpr unsigned WindowWidth = 720;
 constexpr unsigned WindowHeight = 480;
-
-constexpr char const *vertexShader = R"(
-struct VertexIn {
-    @location(0) aPos : vec2<f32>,
-    @location(1) aCol : vec3<f32>
-}
-struct VertexOut {
-    @location(0) vCol : vec3<f32>,
-    @builtin(position) Position : vec4<f32>
-}
-struct Rotation {
-    @location(0) degs : f32
-}
-@group(0) @binding(0) var<uniform> uRot : Rotation;
-@vertex
-fn main(input : VertexIn) -> VertexOut {
-    var rads : f32 = radians(uRot.degs);
-    var cosA : f32 = cos(rads);
-    var sinA : f32 = sin(rads);
-    var rot : mat3x3<f32> = mat3x3<f32>(
-        vec3<f32>( cosA, sinA, 0.0),
-        vec3<f32>(-sinA, cosA, 0.0),
-        vec3<f32>( 0.0,  0.0,  1.0));
-    var output : VertexOut;
-    output.Position = vec4<f32>(rot * vec3<f32>(input.aPos, 1.0), 1.0);
-    output.vCol = input.aCol;
-    return output;
-}
-)";
-constexpr char const *fragmentShader = R"(
-@fragment
-fn main(@location(0) vCol : vec3<f32>) -> @location(0) vec4<f32> {
-    return vec4<f32>(vCol, 1.0);
-}
-)";
 
 struct Renderer
 : public virtual Window
@@ -185,8 +151,7 @@ struct Renderer
 
   RenderPipeline CreatePipeline()
   {
-    ShaderModule vertMod = createWGSLShader(vertexShader);
-    ShaderModule fragMod = createWGSLShader(fragmentShader);
+    ShaderModule shader = createWGSLShader(Shaders::WGSL::Triangle);
 
     BindGroupLayout bindGroupLayout;
     {
@@ -235,7 +200,7 @@ struct Renderer
       .attributes = vertexAttributes.data()};
 
     VertexState vertexState{
-      .module = vertMod,
+      .module = shader,
       .entryPoint = "main",
       .bufferCount = 1,
       .buffers = &vertexBufferLayout};
@@ -256,8 +221,8 @@ struct Renderer
       .writeMask = ColorWriteMask::All}};
 
     FragmentState fragmentState{
-      .module = fragMod,
-      .entryPoint = "main",
+      .module = shader,
+      .entryPoint = "frag_main",
       .targetCount = colorTargets.size(),
       .targets = colorTargets.data()};
 

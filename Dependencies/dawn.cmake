@@ -29,7 +29,6 @@ if(EMSCRIPTEN)
   set(TINT_BUILD_AS_OTHER_OS ON)
 endif()
 
-if(NOT EMSCRIPTEN)
 #[[Quick]]
 if(DAWN_FETCH_DEPENDENCIES)
   DeclareDependency(dawn ${DAWN_URL} ${DAWN_TAG})
@@ -69,4 +68,3 @@ else()
   )
   ]]
 endif()
-endif(NOT EMSCRIPTEN)

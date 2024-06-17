@@ -23,12 +23,20 @@ PRIVATE
     Diyou::Lib
     $<$<BOOL:${EMSCRIPTEN}>:Shell.html>
 )
+AddShaders(Triangle
+WGSL
+    Shaders/wgsl/Triangle.wgsl
+)
 
 add_executable(Cube WIN32 Cube.c++)
 target_link_libraries(Cube
 PRIVATE
     Diyou::Lib
     $<$<BOOL:${EMSCRIPTEN}>:Shell.html>
+)
+AddShaders(Cube
+WGSL
+    Shaders/wgsl/Cube.wgsl
 )
 
 add_dependencies(Examples

@@ -20,6 +20,7 @@ list(APPEND CMAKE_MODULE_PATH
 )
 
 include(Macros)
+include(ShaderMacros)
 include(Emscripten)
 
 project(Diyou CXX)
@@ -55,6 +56,7 @@ $<IF:$<BOOL:${EMSCRIPTEN}>,
 ,
     webgpu_dawn
 >
+    SPIRV-Tools-opt
     SDL3::SDL3
     glm::glm
 )

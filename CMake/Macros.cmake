@@ -79,6 +79,22 @@ function(AppendPath)
   set(ENV{PATH} "${_PATH}") 
 endfunction()
 
+function(WriteIfChanged DESTINATION TEXT)
+set(Changed FALSE)
+if(EXISTS ${DESTINATION})
+  file(STRINGS ${DESTINATION} compare_string NEWLINE_CONSUME)
+  string(REPLACE "\\;" "\;" compare_string ${compare_string})
+  string(COMPARE EQUAL
+    "${compare_string}"
+    "${TEXT}"
+    Changed
+  )
+endif()
+if(NOT ${Changed})
+  file(WRITE ${DESTINATION} "${TEXT}")
+endif()
+endfunction()
+
 function(Configure FILE_IN FILE_OUT)
 set(COPY_REMARK "\
 # Do not edit!
