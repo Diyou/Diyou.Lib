@@ -101,13 +101,24 @@ protected:
   }
 
 public:
-  ShaderModule createShader(char const *code, char const *label = nullptr)
+  ShaderModule createSPIRVShader(
+    vector<uint32_t> const &code,
+    char const *label = nullptr)
+  {
+    ShaderModuleSPIRVDescriptor spirv;
+    spirv.code = code.data();
+    spirv.codeSize = code.size();
+
+    ShaderModuleDescriptor descriptor{.nextInChain = &spirv, .label = label};
+    return device.CreateShaderModule(&descriptor);
+  }
+
+  ShaderModule createWGSLShader(char const *code, char const *label = nullptr)
   {
     ShaderModuleWGSLDescriptor wgsl;
     wgsl.code = code;
 
     ShaderModuleDescriptor descriptor{.nextInChain = &wgsl, .label = label};
-
     return device.CreateShaderModule(&descriptor);
   }
 

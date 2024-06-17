@@ -2,7 +2,16 @@
   "include": ["_Common.json"],
   "configurePresets": [
     {
-      "name": "pthreads",
+      "name": "Emscripten",
+      "hidden": true,
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_WASM": "ON",
+        "BUILD_SHARED_LIBS": "OFF"
+      }
+    },
+    {
+      "name": "Emscripten::pthreads",
       "hidden": true,
       "cacheVariables": {
         "BUILD_WASM_PTHREADS": "ON"
@@ -11,15 +20,15 @@
     {
       "name": "Debug::Emscripten",
       "displayName": "Debug.html",
-      "description": "Web build using emscripten",
-      "inherits": ["Debug", "emscripten"],
+      "description": "Web build using Emscripten",
+      "inherits": ["Debug", "Emscripten"],
       "binaryDir": "${sourceDir}/build/Debug-Emscripten"
     },
     {
       "name": "Release::Emscripten",
       "displayName": "Release.html",
-      "description": "Optimized Web build using emscripten",
-      "inherits": ["Release::Mini", "emscripten"],
+      "description": "Optimized Web build using Emscripten",
+      "inherits": ["Release::Mini", "Emscripten"],
       "binaryDir": "${sourceDir}/build/Release-Emscripten"
     }
   ],

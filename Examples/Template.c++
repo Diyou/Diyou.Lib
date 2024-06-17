@@ -12,8 +12,9 @@ constexpr unsigned WindowWidth = 720;
 constexpr unsigned WindowHeight = 480;
 
 struct Renderer
-: public Window
+: public virtual Window
 , public virtual Context
+// Interfaces:
 , public virtual IRenderer
 {
   Renderer(Window &&window, Context &&context)

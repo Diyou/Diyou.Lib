@@ -77,15 +77,6 @@
         "CC": "clang-cl",
         "CXX": "clang-cl"
       }
-    },
-    {
-      "name": "emscripten",
-      "hidden": true,
-      "generator": "Ninja",
-      "cacheVariables": {
-        "BUILD_WASM": "ON",
-        "BUILD_SHARED_LIBS": "OFF"
-      }
     }
   ],
   "buildPresets": [

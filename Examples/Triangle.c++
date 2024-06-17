@@ -58,8 +58,9 @@ fn main(@location(0) vCol : vec3<f32>) -> @location(0) vec4<f32> {
 )";
 
 struct Renderer
-: public Window
+: public virtual Window
 , public virtual Context
+// Interfaces:
 , public virtual IRenderer
 {
   TextureView backBuffer;
@@ -184,8 +185,8 @@ struct Renderer
 
   RenderPipeline CreatePipeline()
   {
-    ShaderModule vertMod = createShader(vertexShader);
-    ShaderModule fragMod = createShader(fragmentShader);
+    ShaderModule vertMod = createWGSLShader(vertexShader);
+    ShaderModule fragMod = createWGSLShader(fragmentShader);
 
     BindGroupLayout bindGroupLayout;
     {

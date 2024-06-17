@@ -7,4 +7,8 @@
 # LICENSE file in the root directory of this source tree.
 
 set(GLM_ENABLE_CXX_20 ON CACHE BOOL "Build glm with c++20" FORCE)
-DeclareDependency(glm https://github.com/g-truc/glm 1.0.1)
+
+DeclareDependency(glm
+    https://github.com/g-truc/glm
+    1.0.1
+)

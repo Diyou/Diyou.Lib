@@ -25,8 +25,8 @@ cmake --preset=Debug::Emscripten && cmake --build --preset=Debug::Emscripten
 - Release::Unix (clang + Ninja)
 - Debug::Windows (MSVC)
 - Release::Windows (MSVC)
-- Debug::Emscripten (clang + Ninja)
-- Release::Emscripten (clang + Ninja)
+- Debug::Emscripten (emcc + Ninja)
+- Release::Emscripten (emcc + Ninja)
 
 ### In vscode with [cmake-tools](https://github.com/microsoft/vscode-cmake-tools)
 

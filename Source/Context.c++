@@ -43,7 +43,7 @@ export struct Context
       function<void(Window &&, Context &&)> callback;
     };
 
-    auto *userdata = new UserData(::move(window), {}, ::move(callback));
+    auto *userdata = new UserData(::move(window), Context{}, ::move(callback));
 
     auto &context = userdata->context;
     auto &instance = context.instance;
