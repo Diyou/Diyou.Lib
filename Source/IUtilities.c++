@@ -1,5 +1,5 @@
 /**
- * IRenderer.c++ - Diyou.Engine
+ * IUtilities.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.
@@ -8,87 +8,23 @@
  * LICENSE file in the root directory of this source tree.
  */
 module;
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#include <emscripten/html5.h>
-#endif
-
-#include <iostream>
-#include <thread>
 
 #include <webgpu/webgpu_cpp.h>
 
 #include <spirv-tools/libspirv.hpp>
 #include <spirv-tools/optimizer.hpp>
 
-export module Diyou:IRenderer;
+#include <iostream>
+
+export module Diyou:IUtilities;
 
 import :Context;
 
 using namespace std;
 using namespace wgpu;
 
-export class IRenderer : public virtual Context
+export struct IUtilities : public virtual Context
 {
-  bool rendering = false;
-  thread loop;
-
-  void Loop()
-  {
-    while (rendering) {
-      Draw();
-      surface.Present();
-      instance.ProcessEvents();
-    }
-  }
-
-protected:
-  virtual void Draw() = 0;
-
-  void Stop()
-  {
-    rendering = false;
-    loop.join();
-  }
-
-  void Start()
-  {
-    if (rendering) {
-      return;
-    }
-    rendering = true;
-#ifdef __EMSCRIPTEN__
-#ifdef __EMSCRIPTEN_PTHREADS__
-    loop = thread(
-      [this]()
-      {
-        emscripten_set_main_loop_arg(
-          [](void *userData)
-          {
-            auto &_this = *static_cast<IRenderer *>(userData);
-            _this.Draw();
-            _this.surface.Present();
-            _this.instance.ProcessEvents();
-          },
-          this,
-          0,
-          true);
-      });
-#else
-    emscripten_request_animation_frame_loop(
-      [](double time, void *userData) -> EM_BOOL
-      {
-        auto &_this = *(IRenderer *)userData;
-        _this.Draw();
-        return _this.rendering;
-      },
-      this);
-#endif
-#else
-    loop = thread(&IRenderer::Loop, this);
-#endif
-  }
-
   // TODO Update to AdapterInfo in emscripten 3.1.62
   [[nodiscard]]
   AdapterProperties getAdapterProperties() const
@@ -103,7 +39,6 @@ protected:
     return properties;
   }
 
-public:
   ShaderModule createSPIRVShader(
     vector<uint32_t> const &code,
     char const *label = nullptr)

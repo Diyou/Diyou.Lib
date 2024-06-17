@@ -32,6 +32,7 @@ PUBLIC
         Runtime.c++
         Surfaces/Surface${PLATFORM_SUFFIX}.c++
         Context.c++
-        IRenderer.c++ 
+        ILoop.c++
+        IUtilities.c++ 
         #Surface.cpp  
 )

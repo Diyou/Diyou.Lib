@@ -34,7 +34,8 @@ struct Renderer
 : public virtual Window
 , public virtual Context
 // Interfaces:
-, public virtual IRenderer
+, public virtual ILoop
+, public virtual IUtilities
 {
   TextureView backBuffer;
 

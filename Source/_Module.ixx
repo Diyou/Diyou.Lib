@@ -17,4 +17,5 @@ export module Diyou;
 export import :Runtime;
 export import :Window;
 export import :Context;
-export import :IRenderer;
+export import :ILoop;
+export import :IUtilities;

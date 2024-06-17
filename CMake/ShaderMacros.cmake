@@ -34,7 +34,6 @@ PROPERTIES
     LINK_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/${WGSL_SHADER};${INTERMEDIATE_DIR}/${FILE_NAME}.cpp"
 )
 
-Message(STATUS "Shader(WGSL): Importing ${FILE_NAME}.wgsl")
 endforeach()
 
 set(SHADER_MODULE "\
@@ -47,7 +46,7 @@ ${SHADER_MODULES}\
 }"
 )
 
-WriteIfChanged(${INTERMEDIATE_DIR}/Shader.ixx "${SHADER_MODULE}")
+WriteIfChanged(${INTERMEDIATE_DIR}/Shaders.ixx "${SHADER_MODULE}")
 
 string(TOLOWER ${TARGET} lower_target)
 target_sources(${TARGET}
@@ -57,7 +56,7 @@ PUBLIC
     BASE_DIRS
         ${INTERMEDIATE_DIR}
     FILES
-        ${INTERMEDIATE_DIR}/Shader.ixx
+        ${INTERMEDIATE_DIR}/Shaders.ixx
         ${SHADER_SOURCES}  
 )
 endfunction()
