@@ -33,7 +33,7 @@ export struct Context
     Window const &window);
 
   static inline void From(
-    unique_ptr<Window> window,
+    unique_ptr<Window> &window,
     function<void(Window &&, Context &&)> callback)
   {
     struct UserData

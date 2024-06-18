@@ -17,7 +17,7 @@ elseif(EMSCRIPTEN)
 elseif(ANDROID)
     set(PLATFORM_SUFFIX .Android)
 else()
-    message(FATAL_ERROR "Platform(${CMAKE_SYSTEM_NAME}) not supported")
+    Message(FATAL_ERROR "Platform(${CMAKE_SYSTEM_NAME}) not supported")
 endif()
 
 target_sources(${PROJECT_NAME}

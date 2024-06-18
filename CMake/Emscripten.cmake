@@ -36,7 +36,7 @@ endfunction()
 updateIfNeeded()
 include(${EMSCRIPTEN_TOOLCHAIN})
 
-message(STATUS "Dependency: emscripten/${EMSCRIPTEN_VERSION}")
+Message(STATUS "Dependency: emscripten/${EMSCRIPTEN_VERSION}")
 set(CMAKE_TOOLCHAIN_FILE ${EMSCRIPTEN_TOOLCHAIN})
 
 # Temporary fix until full emscripten support
@@ -72,7 +72,7 @@ $<$<CONFIG:Debug>:
 # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements
 if(BUILD_WASM_PTHREADS)
 set(ENABLE_IPO OFF)
-message(STATUS "Multithreading: Enabled")
+Message(STATUS "Multithreading: Enabled")
 target_link_options(emscripten
 INTERFACE
     -sENVIRONMENT=web,worker

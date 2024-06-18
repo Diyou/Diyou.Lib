@@ -260,10 +260,10 @@ struct Renderer
     instances.erase(position);
   }
 
-  static void CreateFrom(unique_ptr<Window> window)
+  static void CreateFrom(unique_ptr<Window> &window)
   {
     Context::From(
-      ::move(window),
+      window,
       [](Window &&window, Context &&context)
       {
         auto renderer = make_unique<Renderer>(::move(window), ::move(context));
@@ -282,6 +282,6 @@ Init(Runtime const &runtime)
   for (int i = 0; i < 2; i++) {
     auto window = make_unique<Window>(
       format("{}#{}", WindowTitle, i), WindowWidth, WindowHeight);
-    Renderer::CreateFrom(::move(window));
+    Renderer::CreateFrom(window);
   }
 }

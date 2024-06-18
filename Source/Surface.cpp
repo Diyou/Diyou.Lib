@@ -76,7 +76,7 @@ Context::GetSurface(Instance const &instance, Window const &window)
     SDL_GetProperty(props, SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER, nullptr);
 #elifdef __EMSCRIPTEN__
   SurfaceDescriptorFromCanvasHTMLSelector chain;
-  chain.selector = (char *)SDL_GetProperty(props, "„🖼", nullptr);
+  chain.selector = (char *)SDL_GetProperty(props, "🖼", nullptr);
 #endif
 
   descriptor.nextInChain = &chain;
