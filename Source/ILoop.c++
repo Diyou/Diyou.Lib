@@ -58,7 +58,7 @@ protected:
         emscripten_set_main_loop_arg(
           [](void *userData)
           {
-            auto &_this = *static_cast<IRenderer *>(userData);
+            auto &_this = *static_cast<ILoop *>(userData);
             _this.Draw();
             _this.surface.Present();
             _this.instance.ProcessEvents();
@@ -71,7 +71,7 @@ protected:
     emscripten_request_animation_frame_loop(
       [](double time, void *userData) -> EM_BOOL
       {
-        auto &_this = *(IRenderer *)userData;
+        auto &_this = *(ILoop *)userData;
         _this.Draw();
         return _this.rendering;
       },
