@@ -1,5 +1,5 @@
 /**
- * Surface.WASM.c++ - Diyou.Engine
+ * Surface.WASM.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.

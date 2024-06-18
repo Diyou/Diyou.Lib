@@ -1,5 +1,5 @@
 /**
- * _Module.ixx - Diyou.Engine
+ * _Module.ixx - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.
@@ -14,6 +14,7 @@ module;
 
 export module Diyou;
 
+export import :Application;
 export import :Runtime;
 export import :Window;
 export import :Context;

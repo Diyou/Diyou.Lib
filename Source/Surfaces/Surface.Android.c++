@@ -1,5 +1,5 @@
 /**
- * Surface.Android.c++ - Diyou.Engine
+ * Surface.Android.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.

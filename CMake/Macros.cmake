@@ -1,4 +1,4 @@
-# macros.cmake - Diyou.Engine
+# macros.cmake - Diyou.Lib
 # 
 # Copyright (c) 2024 Diyou
 # All rights reserved.

@@ -1,5 +1,5 @@
 /**
- * Surface.Apple.c++ - Diyou.Engine
+ * Surface.Apple.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.

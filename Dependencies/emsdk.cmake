@@ -1,4 +1,4 @@
-# emsdk.cmake - Diyou.Engine
+# emsdk.cmake - Diyou.Lib
 # 
 # Copyright (c) 2024 Diyou
 # All rights reserved.

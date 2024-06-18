@@ -1,4 +1,4 @@
-# glm.cmake - Diyou.Engine
+# glm.cmake - Diyou.Lib
 # 
 # Copyright (c) 2024 Diyou
 # All rights reserved.

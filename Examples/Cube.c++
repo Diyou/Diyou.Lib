@@ -1,5 +1,5 @@
 /**
- * Cube.c++ - Diyou.Engine
+ * Cube.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.
@@ -15,7 +15,6 @@ import Shaders;
 #include <glm/glm.hpp>
 
 #include <array>
-#include <cassert>
 #include <chrono>
 #include <iostream>
 
@@ -31,14 +30,12 @@ constexpr unsigned WindowWidth = 720;
 constexpr unsigned WindowHeight = 480;
 
 struct Renderer
-: public virtual Window
+: Runtime<Renderer>
+, public virtual Window
 , public virtual Context
 // Interfaces:
-, public virtual ILoop
 , public virtual IUtilities
 {
-  TextureView backBuffer;
-
   TextureFormat textureFormat;
   Texture depthTexture;
 
@@ -183,12 +180,8 @@ struct Renderer
 
   void Draw() override
   {
-    SurfaceTexture surfaceTexture;
-    surface.GetCurrentTexture(&surfaceTexture);
-    backBuffer = surfaceTexture.texture.CreateView();
-
     array colorAttachments{RenderPassColorAttachment{
-      .view = backBuffer,
+      .view = CurrentSurfaceView(),
       .loadOp = LoadOp::Clear,
       .storeOp = StoreOp::Store,
       .clearValue = {.r = 0.5F, .g = 0.5F, .b = 0.5F, .a = 1.0F}}};
@@ -335,19 +328,7 @@ struct Renderer
     }
   }
 
-  void Close() override
-  {
-    Stop();
-
-    auto position = find_if(
-      instances.begin(),
-      instances.end(),
-      [this](auto &renderer) { return renderer.get() == this; });
-
-    assert(position != instances.end());
-
-    instances.erase(position);
-  }
+  void Close() override { Runtime::Close(); }
 
   static void CreateFrom(unique_ptr<Window> &window)
   {
@@ -356,17 +337,13 @@ struct Renderer
       [](Window &&window, Context &&context)
       {
         auto renderer = make_unique<Renderer>(::move(window), ::move(context));
-        instances.push_back(::move(renderer));
+        Instances.push_back(::move(renderer));
       });
   }
-
-  static vector<unique_ptr<Renderer>> instances;
 };
 
-vector<unique_ptr<Renderer>> Renderer::instances;
-
 void
-Init(Runtime const &runtime)
+Init(Application const &app)
 {
   auto window = make_unique<Window>(WindowTitle, WindowWidth, WindowHeight);
   Renderer::CreateFrom(window);

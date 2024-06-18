@@ -1,5 +1,5 @@
 /**
- * Window.c++ - Diyou.Engine
+ * Window.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.
@@ -28,7 +28,7 @@ constexpr char const *RuntimeResolver = "🪟";
 
 export class Window
 {
-  friend struct Runtime;
+  friend struct Application;
   friend struct Context;
 
   SDL_Window *handle;

@@ -1,4 +1,4 @@
-# wasm_support.cmake - Diyou.Engine
+# wasm_support.cmake - Diyou.Lib
 # 
 # Copyright (c) 2024 Diyou
 # All rights reserved.

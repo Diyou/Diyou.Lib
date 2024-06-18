@@ -1,5 +1,5 @@
 /**
- * Context.c++ - Diyou.Engine
+ * Context.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.
@@ -8,6 +8,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 module;
+#ifdef __linux__
+#include <bits/align.h>
+#endif
 #include <functional>
 #include <iostream>
 

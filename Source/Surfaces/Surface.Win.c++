@@ -1,5 +1,5 @@
 /**
- * Surface.Win.c++ - Diyou.Engine
+ * Surface.Win.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.

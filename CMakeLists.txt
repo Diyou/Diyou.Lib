@@ -1,4 +1,4 @@
-# CMakeLists.txt - Diyou.Engine
+# CMakeLists.txt - Diyou.Lib
 # 
 # Copyright (c) 2024 Diyou
 # All rights reserved.

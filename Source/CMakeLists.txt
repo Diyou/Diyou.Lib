@@ -1,4 +1,4 @@
-# CMakeLists.txt - Diyou.Engine
+# CMakeLists.txt - Diyou.Lib
 # 
 # Copyright (c) 2024 Diyou
 # All rights reserved.
@@ -29,6 +29,7 @@ PUBLIC
     FILES
         _Module.ixx
         Window.c++
+        Application.c++
         Runtime.c++
         Surfaces/Surface${PLATFORM_SUFFIX}.c++
         Context.c++

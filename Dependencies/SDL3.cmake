@@ -1,4 +1,4 @@
-# SDL.cmake - Diyou.Engine
+# SDL.cmake - Diyou.Lib
 # 
 # Copyright (c) 2024 Diyou
 # All rights reserved.

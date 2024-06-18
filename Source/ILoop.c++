@@ -1,5 +1,5 @@
 /**
- * ILoop.c++ - Diyou.Engine
+ * ILoop.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.

@@ -1,5 +1,5 @@
 /**
- * Surface.Linux.c++ - Diyou.Engine
+ * Surface.Linux.c++ - Diyou.Lib
  *
  * Copyright (c) 2024 Diyou
  * All rights reserved.
@@ -8,6 +8,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 module;
+#ifdef __linux__
+#include <bits/align.h>
+#endif
+
 #include <SDL3/SDL.h>
 #include <webgpu/webgpu_cpp.h>
 

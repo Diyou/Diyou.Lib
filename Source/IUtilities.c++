@@ -8,7 +8,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 module;
-
+#ifdef __linux__
+#include <bits/align.h>
+#endif
 #include <webgpu/webgpu_cpp.h>
 
 #include <spirv-tools/libspirv.hpp>
@@ -25,6 +27,13 @@ using namespace wgpu;
 
 export struct IUtilities : public virtual Context
 {
+  TextureView CurrentSurfaceView()
+  {
+    SurfaceTexture surfaceTexture;
+    surface.GetCurrentTexture(&surfaceTexture);
+    return surfaceTexture.texture.CreateView();
+  }
+
   // TODO Update to AdapterInfo in emscripten 3.1.62
   [[nodiscard]]
   AdapterProperties getAdapterProperties() const
