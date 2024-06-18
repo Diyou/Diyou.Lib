@@ -27,6 +27,26 @@ using namespace wgpu;
 
 export struct IUtilities : public virtual Context
 {
+  SurfaceCapabilities Capabilities;
+  vector<PresentMode> PresentModes;
+  vector<CompositeAlphaMode> AlphaModes;
+  vector<TextureFormat> TextureFormats;
+
+  IUtilities()
+  {
+    surface.GetCapabilities(adapter, &Capabilities);
+    PresentModes = vector<PresentMode>(
+      Capabilities.presentModes,
+      Capabilities.presentModes + Capabilities.presentModeCount);
+
+    AlphaModes = vector<CompositeAlphaMode>(
+      Capabilities.alphaModes,
+      Capabilities.alphaModes + Capabilities.alphaModeCount);
+
+    TextureFormats = vector<TextureFormat>(
+      Capabilities.formats, Capabilities.formats + Capabilities.formatCount);
+  }
+
   TextureView CurrentSurfaceView()
   {
     SurfaceTexture surfaceTexture;

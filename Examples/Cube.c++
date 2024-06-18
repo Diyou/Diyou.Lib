@@ -106,27 +106,16 @@ struct Renderer
         "GPU: {}\nDriver: {}\n", properties.name, properties.driverDescription);
     }
 
-    SurfaceCapabilities capabilities;
-    surface.GetCapabilities(adapter, &capabilities);
-
-    vector<PresentMode> presentModes(
-      capabilities.presentModes,
-      capabilities.presentModes + capabilities.presentModeCount);
-
-    vector<CompositeAlphaMode> alphaModes(
-      capabilities.alphaModes,
-      capabilities.alphaModes + capabilities.alphaModeCount);
-
-    textureFormat = capabilities.formats[0];
+    textureFormat = TextureFormats.front();
 
     SurfaceConfiguration config{
       .device = device,
       .format = textureFormat,
       .usage = TextureUsage::RenderAttachment,
-      .alphaMode = alphaModes.front(),
+      .alphaMode = AlphaModes.front(),
       .width = width,
       .height = height,
-      .presentMode = presentModes.front()};
+      .presentMode = PresentModes.front()};
 
     surface.Configure(&config);
 
