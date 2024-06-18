@@ -27,11 +27,18 @@ struct Runtime : public virtual ILoop
     auto position = find_if(
       Instances.begin(),
       Instances.end(),
-      [this](auto &renderer) { return renderer.get() == this; });
+      [this](auto &instance) { return instance.get() == this; });
 
     assert(position != Instances.end());
 
     Instances.erase(position);
   }
+
+  static inline void Add(unique_ptr<T> &instance)
+  {
+    Instances.push_back(::move(instance));
+  }
+
+private:
   static inline vector<unique_ptr<T>> Instances;
 };

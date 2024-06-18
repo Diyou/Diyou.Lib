@@ -35,20 +35,21 @@ export struct Context
     Instance const &instance,
     Window const &window);
 
-  static inline void From(
+  static inline void Receive(
     unique_ptr<Window> &window,
-    function<void(Window &&, Context &&)> callback)
+    function<void(unique_ptr<Window> &, unique_ptr<Context> &)> callback)
   {
     struct UserData
     {
       unique_ptr<Window> window;
-      Context context;
-      function<void(Window &&, Context &&)> callback;
+      unique_ptr<Context> context;
+      function<void(unique_ptr<Window> &, unique_ptr<Context> &)> callback;
     };
 
-    auto *userdata = new UserData(::move(window), Context{}, ::move(callback));
+    auto *userdata = new UserData(
+      ::move(window), ::move(make_unique<Context>()), ::move(callback));
 
-    auto &context = userdata->context;
+    auto &context = *userdata->context;
     auto &instance = context.instance;
     auto &surface = context.surface;
 
@@ -78,7 +79,7 @@ export struct Context
           throw message;
         }
 
-        auto &context = userData.context;
+        auto &context = *userData.context;
         auto &adapter = context.adapter;
 
         adapter = Adapter::Acquire(cAdapter);
@@ -135,11 +136,11 @@ export struct Context
             auto &window = userData.window;
             auto &context = userData.context;
             auto &callback = userData.callback;
-            auto &device = context.device;
+            auto &device = context->device;
 
             device = Device::Acquire(cDevice);
 
-            callback(::move(*window), ::move(context));
+            callback(window, context);
             delete &userData;
           },
           userdata);

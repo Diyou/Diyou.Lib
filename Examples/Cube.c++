@@ -91,9 +91,9 @@ struct Renderer
   BindGroup bindGroup;
   RenderPipeline pipeline;
 
-  Renderer(Window &&window, Context &&context)
-  : Window(::move(window))
-  , Context(::move(context))
+  Renderer(unique_ptr<Window> &window, unique_ptr<Context> &context)
+  : Window(::move(*window))
+  , Context(::move(*context))
   {
     unsigned width;
     unsigned height;
@@ -330,15 +330,12 @@ struct Renderer
 
   void Close() override { Runtime::Close(); }
 
-  static void CreateFrom(unique_ptr<Window> &window)
+  static void CreateFrom(
+    unique_ptr<Window> &window,
+    unique_ptr<Context> &context)
   {
-    Context::From(
-      window,
-      [](Window &&window, Context &&context)
-      {
-        auto renderer = make_unique<Renderer>(::move(window), ::move(context));
-        Instances.push_back(::move(renderer));
-      });
+    auto instance = make_unique<Renderer>(window, context);
+    Runtime::Add(instance);
   }
 };
 
@@ -346,5 +343,5 @@ void
 Init(Application const &app)
 {
   auto window = make_unique<Window>(WindowTitle, WindowWidth, WindowHeight);
-  Renderer::CreateFrom(window);
+  Context::Receive(window, Renderer::CreateFrom);
 }
