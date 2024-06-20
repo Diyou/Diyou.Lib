@@ -56,7 +56,6 @@ $<IF:$<BOOL:${EMSCRIPTEN}>,
 ,
     webgpu_dawn
 >
-    SPIRV-Tools-opt
     SDL3::SDL3
     glm::glm
 )

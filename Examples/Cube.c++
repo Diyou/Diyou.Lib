@@ -212,9 +212,9 @@ struct Renderer
 
   RenderPipeline CreatePipeline()
   {
-    ShaderModule shader = createWGSLShader(Shaders::WGSL::Cube);
-    // ShaderModule shader = createSPIRVShader(Shaders::GLSL::Cube_vert);
-    // ShaderModule frag_shader = createSPIRVShader(Shaders::GLSL::Cube_frag);
+    // ShaderModule shader = createWGSLShader(Shaders::WGSL::Cube);
+    ShaderModule shader = createSPIRVShader(Shaders::GLSL::Cube_vert);
+    ShaderModule frag_shader = createSPIRVShader(Shaders::GLSL::Cube_frag);
 
     BindGroupLayout bindGroupLayout;
     {
@@ -289,8 +289,8 @@ struct Renderer
       .writeMask = ColorWriteMask::All}};
 
     FragmentState fragmentState{
-      .module = shader,
-      .entryPoint = "frag_main",
+      .module = frag_shader,
+      .entryPoint = "main",
       .targetCount = colorTargets.size(),
       .targets = colorTargets.data()};
 

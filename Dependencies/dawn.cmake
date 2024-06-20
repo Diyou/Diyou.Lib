@@ -27,6 +27,9 @@ endif()
 
 if(EMSCRIPTEN)
   set(TINT_BUILD_AS_OTHER_OS ON)
+  set(TINT_BUILD_WGSL_READER OFF)
+  set(TINT_BUILD_SPV_WRITER OFF)
+  set(TINT_BUILD_IR OFF)
 endif()
 
 #[[Quick]]

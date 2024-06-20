@@ -11,11 +11,10 @@ module;
 #ifdef __linux__
 #include <bits/align.h>
 #endif
+#include <cassert>
 
 #include <SDL3/SDL.h>
 #include <webgpu/webgpu_cpp.h>
-
-#include <cassert>
 
 export module Diyou:Surface;
 

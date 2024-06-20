@@ -64,11 +64,14 @@ $<$<CONFIG:Debug>:
 >)
 target_compile_options(emscripten
 INTERFACE
-    -fexceptions # for precompiled headers
 $<$<CONFIG:Debug>:
     -fsanitize=undefined
 >)
 
+#Prevent PCH Issue with c++20 modules. Perhaps a cmake issue
+add_compile_options(-fexceptions)
+
+# For pthreads see:
 # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements
 if(BUILD_WASM_PTHREADS)
 set(ENABLE_IPO OFF)
