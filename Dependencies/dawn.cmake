@@ -6,7 +6,7 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-set(DAWN_TAG chromium/6536)
+set(DAWN_TAG chromium/6551)
 set(DAWN_URL https://dawn.googlesource.com/dawn.git)
 
 set(DAWN_ENABLE_DESKTOP_GL OFF)
@@ -18,6 +18,9 @@ set(TINT_BUILD_TESTS OFF)
 set(TINT_BUILD_BENCHMARKS OFF)
 set(TINT_BUILD_CMD_TOOLS OFF)
 
+set(TINT_BUILD_IR_BINARY OFF)
+set(TINT_BUILD_IR_FUZZER OFF)
+
 set(DAWN_USE_GLFW OFF)
 
 if(LINUX)
@@ -27,9 +30,10 @@ endif()
 
 if(EMSCRIPTEN)
   set(TINT_BUILD_AS_OTHER_OS ON)
+
   set(TINT_BUILD_WGSL_READER OFF)
+  set(TINT_BUILD_GLSL_VALIDATOR OFF)
   set(TINT_BUILD_SPV_WRITER OFF)
-  set(TINT_BUILD_IR OFF)
 endif()
 
 #[[Quick]]
@@ -57,7 +61,9 @@ else()
   )
 
   DeclareDependency(dawn ${DAWN_URL} ${DAWN_TAG}
-    PATCH ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient && gclient sync
+    PATCH
+      ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient &&
+      gclient sync
   )
 
   #[[Submodule approach
@@ -67,7 +73,9 @@ else()
 
   DeclareDependency(dawn ${DAWN_URL} ${DAWN_TAG}
     SUBMODULES ${DEPOT_TOOLS}
-    PATCH ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient ${WIN_TOOLS} && gclient sync
+    PATCH
+      ${CMAKE_COMMAND} -E copy scripts/standalone.gclient .gclient ${WIN_TOOLS} &&
+      gclient sync
   )
   ]]
 endif()
