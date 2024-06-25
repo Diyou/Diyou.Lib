@@ -19,13 +19,19 @@ function(DeclareDependency NAME URL TAG)
 
   Message(STATUS "Adding Dependency: ${NAME}")
 
+  set(UPDATE_DISCONNECTED FALSE)
+  GitTag(${CACHE_DIR}/${NAME} VERSION)
+  if("${TAG}" STREQUAL "${VERSION}")
+  set(UPDATE_DISCONNECTED TRUE)
+  endif()
+
   FetchContent_Declare(${NAME}
     GIT_REPOSITORY    ${URL}
     GIT_TAG           ${TAG}
     GIT_SHALLOW       TRUE
     GIT_SUBMODULES    "${FUNC_DDEP_SUBMODULES}"
     GIT_PROGRESS      TRUE
-    UPDATE_DISCONNECTED TRUE
+    UPDATE_DISCONNECTED ${UPDATE_DISCONNECTED}
     EXCLUDE_FROM_ALL  TRUE
     BINARY_DIR        ${NAME}
     PREFIX            ${CACHE_DIR}/.prefix/${NAME}
@@ -50,14 +56,14 @@ function(AddDependencies Dependencies)
 endfunction()
 
 function(GitTag DIR OUT)
-  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
+  execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
     WORKING_DIRECTORY ${DIR}
     OUTPUT_VARIABLE VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_QUIET
   )
   if("${VERSION}" STREQUAL "")
-  execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
+  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
     WORKING_DIRECTORY ${DIR}
     OUTPUT_VARIABLE VERSION
     OUTPUT_STRIP_TRAILING_WHITESPACE
