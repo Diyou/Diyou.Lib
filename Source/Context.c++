@@ -85,15 +85,14 @@ export struct Context
         adapter = Adapter::Acquire(cAdapter);
 
 #ifdef __EMSCRIPTEN__
-        DeviceDescriptor descriptor{
-          .deviceLostCallback =
-            [](WGPUDeviceLostReason reason, char const *message, void *userData)
-          {
-            auto &context = *static_cast<Context *>(userData);
-            context.onDeviceLost(
-              static_cast<DeviceLostReason>(reason), message);
-          },
-          .deviceLostUserdata = &context};
+        DeviceDescriptor descriptor;
+        descriptor.deviceLostCallback =
+          [](WGPUDeviceLostReason reason, char const *message, void *userData)
+        {
+          auto &context = *static_cast<Context *>(userData);
+          context.onDeviceLost(static_cast<DeviceLostReason>(reason), message);
+        },
+        descriptor.deviceLostUserdata = &context;
 #else
         DeviceLostCallbackInfo lost{
           .callback =
@@ -116,8 +115,10 @@ export struct Context
             context.onError(static_cast<ErrorType>(type), message);
           },
           .userdata = &context};
-        DeviceDescriptor descriptor{
-          .deviceLostCallbackInfo = lost, .uncapturedErrorCallbackInfo = error};
+
+        DeviceDescriptor descriptor;
+        descriptor.deviceLostCallbackInfo = lost;
+        descriptor.uncapturedErrorCallbackInfo = error;
 #endif
         adapter.RequestDevice(
           &descriptor,
