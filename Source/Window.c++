@@ -47,11 +47,12 @@ protected:
 
   virtual void OnKeyDown(SDL_KeyboardEvent const &event)
   {
-    SDL_Keysym const &key = event.keysym;
+    SDL_Scancode const &code = event.scancode;
+    SDL_Keymod const &mod = event.mod;
     // Toggle fullscreen
     if (
-      event.repeat == 0 && (key.mod & SDL_KMOD_ALT) > 0
-      && (key.scancode == SDL_SCANCODE_KP_ENTER || key.scancode == SDL_SCANCODE_RETURN))
+      event.repeat == 0 && (mod & SDL_KMOD_ALT) > 0
+      && (code == SDL_SCANCODE_KP_ENTER || code == SDL_SCANCODE_RETURN))
     {
       SDL_WindowFlags flags = SDL_GetWindowFlags(handle);
       bool isNotFullscreen = (flags & SDL_WINDOW_FULLSCREEN) == 0;
