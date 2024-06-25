@@ -38,38 +38,4 @@ PUBLIC
         #Surface.cpp  
 )
 
-add_library(${PROJECT_NAME}.Spirv STATIC)
-target_compile_features(${PROJECT_NAME}.Spirv
-PUBLIC
-    cxx_std_23
-)
-target_sources(${PROJECT_NAME}.Spirv
-PUBLIC
-    FILE_SET module_files
-    TYPE CXX_MODULES
-    BASE_DIRS
-        ${CMAKE_CURRENT_LIST_DIR}
-    FILES
-        Spirv.ixx
-        Spirv.c++
-)
-target_link_libraries(${PROJECT_NAME}.Spirv
-PRIVATE
-    libtint
-)
-
-if(EMSCRIPTEN)
-target_link_options(${PROJECT_NAME}.Spirv
-PUBLIC
-    -sSTACK_SIZE=1MB
-)
-set_target_properties(tint_lang_core_constant
-PROPERTIES
-    INTERPROCEDURAL_OPTIMIZATION FALSE
-)
-endif()
-
-target_link_libraries(${PROJECT_NAME}
-PRIVATE
-    ${PROJECT_NAME}.Spirv
-)
+add_subdirectory(Spirv)

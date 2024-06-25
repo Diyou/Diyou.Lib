@@ -8,12 +8,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 module;
+#include <cstdint>
 #include <string>
 #include <vector>
 
 export module Diyou.Spirv;
 
-export namespace Spirv {
+export namespace SPIRV {
 std::string
-ToWGSL(std::vector<unsigned> const &spirv);
+ToWGSL(std::vector<uint32_t> const &spirv);
+}
+
+export namespace GLSL {
+std::vector<uint32_t>
+ToSPIRV(std::vector<std::string> const &glsl);
 }

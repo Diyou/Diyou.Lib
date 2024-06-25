@@ -19,9 +19,9 @@ export module Diyou.Spirv:Spirv;
 
 using namespace std;
 
-namespace Spirv {
+namespace SPIRV {
 string
-ToWGSL(vector<unsigned> const &spirv)
+ToWGSL(vector<uint32_t> const &spirv)
 {
   tint::spirv::reader::Options reader;
   auto program = tint::spirv::reader::Read(spirv, reader);
