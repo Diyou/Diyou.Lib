@@ -26,17 +26,19 @@ SurfaceFromWindow(Instance const &instance, SDL_Window *window)
 
   SurfaceDescriptorFromMetalLayer chain;
 
-  auto cocoa_window =
-    SDL_GetProperty(props, SDL_PROP_WINDOW_COCOA_WINDOW_POINTER, nullptr);
-  auto view = [cocoa_window contentView];
+  NSWindow &cocoa_window =
+    *SDL_GetProperty(props, SDL_PROP_WINDOW_COCOA_WINDOW_POINTER, nullptr);
 
-  [view setWantsLayer:YES];
-  [view setLayer:[CAMetalLayer layer]];
+  NSView &view = *cocoa_window.contentView;
+
+  CAMetalLayer layer;
+  view.setWantsLayer(true);
+  view.setLayer(&layer);
 
   // Use retina if the window was created with retina support.
-  [[view layer] setContentsScale:[cocoa_window backingScaleFactor]];
+  layer.setContentsScale(cocoa_window.backingScaleFactor);
 
-  chain.layer = [view layer];
+  chain.layer = &layer;
   SurfaceDescriptor descriptor{.nextInChain = &chain};
 
   return instance.CreateSurface(&descriptor);
